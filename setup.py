@@ -21,13 +21,14 @@ def setup_package():
         # --------------------------------- PACKAGE DEPENDENCIES --------------------------------- #
 
         install_requires=[
+            "numpy",
         ],
         setup_requires=[
             "pytest-runner",
         ],
         tests_require=[
             "pytest",
-            "pytest-cov"
+            "pytest-cov",
         ],
 
         # ----------------------------------- PACKAGE CONTENTS ----------------------------------- #
