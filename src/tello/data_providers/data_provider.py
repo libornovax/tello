@@ -50,4 +50,3 @@ class DataProvider(object):
 
     def __del__(self):
         self._socket.close()
-        # Kill the thread???

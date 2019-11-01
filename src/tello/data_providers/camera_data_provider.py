@@ -1,6 +1,6 @@
 import numpy as np
 
-from tello.data_provider import DataProvider
+from tello.data_providers.data_provider import DataProvider
 from tello.utils import TELLO_CAMERA_PORT, TELLO_IP, TELLO_COMMAND_PORT
 from tello.lib.libh264decoder import H264Decoder
 
