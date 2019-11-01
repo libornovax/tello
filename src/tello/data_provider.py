@@ -34,6 +34,9 @@ class DataProvider(object):
 
     # ------------------------------------ PRIVATE INTERFACE ------------------------------------- #
 
+    def _thread_fn(self):
+        raise NotImplementedError("Must be implemented by a child class!")
+
     def _set_latest_data(self, data):
         self._latest_data.value = self._create_new_data_dict(data)
 
