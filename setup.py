@@ -22,7 +22,8 @@ def setup_package():
 
         install_requires=[
             "numpy",
-            "opencv-python"
+            "opencv-python",
+            "pynput",
         ],
         setup_requires=[
             "pytest-runner",
