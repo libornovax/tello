@@ -22,6 +22,7 @@ def setup_package():
 
         install_requires=[
             "numpy",
+            "opencv-python"
         ],
         setup_requires=[
             "pytest-runner",
@@ -36,13 +37,6 @@ def setup_package():
         packages=find_packages("src"),
         package_dir={
             "": "src"
-        },
-        package_data={
-        },
-
-        # ----------------------------------- PACKAGE SCRIPTS ------------------------------------ #
-
-        entry_points={
         }
 
     )
