@@ -50,6 +50,9 @@ class KeyboardController(object):
     def stop(self):
         self._listener.stop()
 
+    def join(self):
+        self._listener.join()
+
     # ------------------------------------ PRIVATE INTERFACE ------------------------------------- #
 
     def _on_press(self, key):
