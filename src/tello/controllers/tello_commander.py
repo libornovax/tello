@@ -1,29 +1,13 @@
-"""
-Available Tello commands:
-
- * takeoff
- * land
- * emergency
- * up x
- * down x
- * left x
- * right x
- * forward x
- * back x
- * cw x
- * ccw x
- * flip x
- * go x y z speed
- * curve x1 y1 z1 x2 y2 z2 speed
- * rc a b c d
-
-"""
 import socket
 
 from tello.utils import TELLO_IP, TELLO_COMMAND_PORT
 
 
 class TelloCommander(object):
+    """
+    Object that provides easy interface for communication with the Tello drone, i.e. sending
+    commands and receiving responses.
+    """
 
     def __init__(self):
         super(TelloCommander, self).__init__()
@@ -36,11 +20,23 @@ class TelloCommander(object):
     # ------------------------------------- PUBLIC INTERFACE ------------------------------------- #
 
     def send(self, command):
+        """
+        Encodes and sends a command to the Tello drone.
+
+        Args:
+            command(str): String command (not encoded)
+        """
         self._socket.send(command.encode())
 
     def receive(self):
+        """
+        Listens for a message from the Tello drone and returns once a message is obtained.
+
+        Returns;
+            :obj:`str` decoded message
+        """
         result = self._socket.recv(1024)
-        print(result.decode())
+        return result.decode()
 
     # ------------------------------------ PRIVATE INTERFACE ------------------------------------- #
 

@@ -2,6 +2,13 @@ import threading
 
 
 class SynchronizedVariable(object):
+    """
+    Object (variable) with a thread-safe getter and setter of its `value`.
+
+    Args:
+        value(obj): Initial value to which the internal variable is set
+        lock(threading.Lock): Lock of the variable (optional)
+    """
 
     def __init__(self, value, lock=None):
         super(SynchronizedVariable, self).__init__()

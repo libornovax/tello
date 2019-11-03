@@ -3,13 +3,35 @@ from tello.utils import TELLO_STATE_PORT
 
 
 class StateDataProvider(DataProvider):
+    """
+    Provider of the latest Tello state data in the form of a dictionary.
+
+    The output state dictionary is indexed by the Tello native state variable names. All values are
+    converted to float numbers. Therefore the output dictionary looks something like this:
+
+    .. code ::
+
+        {
+            "x": 0.0,
+            "y": 90.0,
+            "z": 20.0,
+            "bat": 90.0,
+            "baro": 252.0,
+            ...
+        }
+
+    """
 
     def __init__(self):
         super(StateDataProvider, self).__init__(TELLO_STATE_PORT)
 
-    # ------------------------------------ PRIVATE INTERFACE ------------------------------------- #
+    # ----------------------------------- PROTECTED INTERFACE ------------------------------------ #
 
     def _thread_fn(self):
+        """
+        Read state messages from the Tello drone and update the latest data with the newest state
+        information dictionary.
+        """
         while True:
             # Blocking receive because we want to update the latest data only if we get new data
             encoded_message, ip = self._socket.recvfrom(1024)
@@ -25,7 +47,7 @@ class StateDataProvider(DataProvider):
         """
         Convert the string state message into a dictionary with keys and values.
 
-        This is how the string message may look like:
+        This is how the string message from the Tello drone may look like:
 
         .. code::
 
