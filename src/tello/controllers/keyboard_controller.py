@@ -19,6 +19,9 @@ COMMAND_ROTATE_COUNTERCLOCKWISE = "rc 0 0 0 -100"
 
 
 class KeyboardController(object):
+    """
+    Controller for the Tello drone that allows using keyboard as a controller for the drone.
+    """
 
     KEY_TO_COMMAND = {
         "left": COMMAND_FLY_LEFT,
@@ -45,13 +48,42 @@ class KeyboardController(object):
     # ------------------------------------- PUBLIC INTERFACE ------------------------------------- #
 
     def start(self):
+        """
+        Start the controller thread (does NOT call takeoff of the drone).
+        """
         self._listener.start()
 
     def stop(self):
+        """
+        Stop the controller thread.
+        """
         self._listener.stop()
 
     def join(self):
+        """
+        Join the controller thread (i.e. forbid the program to continue in the main thread).
+        """
         self._listener.join()
+
+    def print_controls(self):
+        """
+        Prints the information about control keys to the command line.
+        """
+        print("TAKEOFF:          {}".format(self._control_keys(COMMAND_TAKEOFF)))
+        print("LAND:             {}".format(self._control_keys(COMMAND_LAND)))
+        print("EMERGENCY:        {}".format(self._control_keys(COMMAND_EMERGENCY)))
+        print("HOVER:            {}".format(self._control_keys(COMMAND_HOVER)))
+        print()
+        print("LEFT:             {}".format(self._control_keys(COMMAND_FLY_LEFT)))
+        print("RIGHT:            {}".format(self._control_keys(COMMAND_FLY_RIGHT)))
+        print("FORWARD:          {}".format(self._control_keys(COMMAND_FLY_FORWARD)))
+        print("BACKWARD:         {}".format(self._control_keys(COMMAND_FLY_BACKWARD)))
+        print()
+        print("UP:               {}".format(self._control_keys(COMMAND_FLY_UP)))
+        print("DOWN:             {}".format(self._control_keys(COMMAND_FLY_DOWN)))
+        print()
+        print("ROT. CLOCKWISE:   {}".format(self._control_keys(COMMAND_ROTATE_CLOCKWISE)))
+        print("ROT. C.CLOCKWISE: {}".format(self._control_keys(COMMAND_ROTATE_COUNTERCLOCKWISE)))
 
     # ------------------------------------ PRIVATE INTERFACE ------------------------------------- #
 
@@ -62,12 +94,28 @@ class KeyboardController(object):
             pass  # Handle keys that do not correspond to any commands
 
     def _on_release(self, key):
-        # Command the drone to start hovering after an action key release.
+        # Command the drone to start hovering after an action key release
         if self._decode_key(key) in ["left", "right", "up", "down", "w", "a", "s", "d"]:
             self._tello_commander.send(COMMAND_HOVER)
 
     def _decode_key(self, key):
+        """
+        Converts the pressed key to its string description. The pynput library has two types of keys
+        that have to be handled separately.
+        """
         if hasattr(key, "char"):
             return str(key.char).lower()
         elif hasattr(key, "name"):
             return str(key.name).lower()
+
+    def _control_keys(self, command):
+        """
+        Returns a list of control keys for the given command.
+
+        Args:
+            command(str): Command (one of the know command constants COMMAND_*)
+
+        Returns:
+            :obj:`list` keys mapped to this command
+        """
+        return [key for key, comm in self.KEY_TO_COMMAND.items() if comm == command]

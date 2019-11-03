@@ -17,6 +17,7 @@ def main():
     print("=" * 99)
 
     keyboard_controller = KeyboardController()
+    keyboard_controller.print_controls()
 
     # Start the keyboard-listening thread. This will listen to key presses and send commands to the
     # Tello drone when action keys are pressed
