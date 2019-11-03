@@ -1,8 +1,8 @@
-Tello Drone Python Tools
-========================
+Tello Drone Python 3 Tools
+==========================
 
-This repository contains implementation of tools that provide convenient access to the Tello Drone
-controls and data streams through the Tello SDK.
+This repository contains **Python 3** implementation of tools that provide convenient access to the
+Tello Drone controls and data streams through the Tello SDK.
 
 The implementations are based on or use:
 
