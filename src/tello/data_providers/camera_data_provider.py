@@ -32,7 +32,7 @@ class CameraDataProvider(DataProvider):
 
     # ----------------------------------- PROTECTED INTERFACE ------------------------------------ #
 
-    def _thread_fn(self):
+    def _receiving_thread_fn(self):
         """
         Collect and decode camera images frames from the Tello drone and update the latest data with
         the newest camera image.

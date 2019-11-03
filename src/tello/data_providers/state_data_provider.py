@@ -27,7 +27,7 @@ class StateDataProvider(DataProvider):
 
     # ----------------------------------- PROTECTED INTERFACE ------------------------------------ #
 
-    def _thread_fn(self):
+    def _receiving_thread_fn(self):
         """
         Read state messages from the Tello drone and update the latest data with the newest state
         information dictionary.
